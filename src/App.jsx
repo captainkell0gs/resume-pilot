@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import GeneralInfo from './components/GeneralInfo/GeneralInfo';
 import MyExperiences from './components/MyExperiences/MyExperiences';
 import CVPreview from './components/CVPreview/CVPreview';
-import ProgressBar from './components/ui/progressBar';
+import ProgressBar from './components/ui/ProgressBar';
 export default function App() {
   const [page, setPage] = useState(1)
   const [generalInfo, setGeneralInfo] = useState(GeneralInfo.empty());
