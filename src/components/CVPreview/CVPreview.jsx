@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import html2pdf from "html2pdf.js";
 
 import TemplateSelector from "./TemplateSelector";
 import ClassicTemplate from "./templates/ClassicTemplate";
@@ -51,6 +50,8 @@ export default function CVPreview({
         try {
         setIsDownloading(true);
 
+        const html2pdf = (await import("html2pdf.js")).default;
+
         const fullName = `${generalInfo.firstName || ""} ${generalInfo.lastName || ""}`.trim();
         const fileName = fullName
             ? `${fullName.replace(/\s+/g, "_")}_CV.pdf`
@@ -60,19 +61,8 @@ export default function CVPreview({
             margin: 0,
             filename: fileName,
             image: { type: "jpeg", quality: 0.98 },
-            html2canvas: {
-            scale: 2,
-            useCORS: true,
-            scrollY: 0,
-            },
-            jsPDF: {
-            unit: "mm",
-            format: "a4",
-            orientation: "portrait",
-            },
-            pagebreak: {
-            mode: ["avoid-all", "css", "legacy"],
-            },
+            html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
+            jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
         };
 
         await html2pdf().set(options).from(cvRef.current).save();
